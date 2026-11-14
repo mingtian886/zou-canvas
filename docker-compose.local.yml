@@ -1,6 +1,6 @@
 services:
   app:
-    image: infinite-canvas:local
+    image: mingtian886/infinite-canvas:latest
     build:
       context: .
       dockerfile: Dockerfile
@@ -9,5 +9,5 @@ services:
     volumes:
       - ./data:/app/data
     ports:
-      - "3000:3000"
+      - "51873:51873"
     restart: unless-stopped

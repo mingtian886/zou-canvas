@@ -10,7 +10,7 @@ description: 使用 Docker Compose 部署无限画布
 ## 使用发布镜像
 
 ```bash
-git clone git@github.com:tigerowo/infinite-canvas.git
+git clone https://github.com/mingtian886/infinite-canvas.git
 cd infinite-canvas
 cp .env.example .env
 docker compose up -d
@@ -19,7 +19,7 @@ docker compose up -d
 启动后访问：
 
 ```text
-http://localhost:3000
+http://localhost:51873
 ```
 
 默认管理员账号：

@@ -20,14 +20,9 @@
 - [后端数据库说明](backend/backend-database.md)
 - [画布数据结构](backend/canvas-data-structure.md)
 
-## 商务合作
+## 开源协议
 
 - [开源协议](business/license.md)
-- [商务合作](business/business.md)
-
-## 赞助支持
-
-- [打赏支持](support/donate.md)
 
 ## 项目进度
 

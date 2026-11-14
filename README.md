@@ -14,10 +14,6 @@
 </p>
 
 <p align="center">
-  <a href="#联系方式"><img src="https://img.shields.io/badge/微信交流群已开放-扫码加入-07C160?style=flat-square&logo=wechat&logoColor=white" alt="微信群"></a>
-</p>
-
-<p align="center">
   <strong>Windows 本地安装包现已同步更新</strong><br>
   <sub>无需从源码构建，下载即可本地运行</sub>
 </p>
@@ -32,35 +28,6 @@
 </p>
 
 无限画布是一款面向图片，视频，音频，全能创作的开源工作台。它把画布编排、AI 图片、视频、音频生成、参考图编辑、对话助手、提示词库和素材沉淀放在同一个界面里，适合用来探索视觉方案并连续迭代图片结果
-
-## 赞助商
-
-<table>
-  <tr>
-    <td width="190" align="center">
-      <a href="https://tokendance.space/" target="_blank" rel="noopener"><img src="https://tokendance.space/TokenDance%E5%93%81%E7%89%8C%E5%9B%BE%E6%A0%87-%E9%BB%91%E8%89%B2%E5%BA%95.svg" width="163" alt="TokenDance 词元跳动"></a>
-    </td>
-    <td>
-      <strong>观猹 × TokenDance｜从产品诞生到持续增长</strong> 观猹是面向 AI 产品与 AI Builder 的产品社区和创新生态，帮助好产品找到真正懂它的用户。同时，<a href="https://tokendance.space/" target="_blank" rel="noopener noreferrer">TokenDance</a> 为开发者提供统一、低成本的多模型调用入口，并通过“百亿 Token 补贴”“开发者计划”等福利降低早期产品的模型调用成本。观猹与 TokenDance 希望让每一个想法都能更轻松地从 Demo 走向真实世界。
-    </td>
-  </tr>
-  <tr>
-    <td width="190" align="center">
-      <a href="https://88api.ai/sign-up?aff=25ty" target="_blank" rel="noopener"><img src="assets/88.webp" width="128" alt="88API"></a>
-    </td>
-    <td>
-      <strong>88API｜无限画布</strong> 让各大主流模型能力结合得更紧密。 🎨 支持 <strong>GPT-Image、Gemini、Grok</strong> 等图片模型；🎬 支持 <strong>Seedance、Wan、H3、Kling、Grok</strong> 等视频模型；🎙️ 支持 <strong>Whisper、TTS</strong> 等语音能力。从文案、出图、改图，到视频生成与配音，一张画布串联完整创作链路。不只是模型聚合，更让不同模型在同一工作流中真正协同。 🎁 通过 <a href="https://88api.ai/sign-up?aff=25ty">无限画布专属链接注册</a>，即可领取赠送额度及专属优惠。
-    </td>
-  </tr>
-  <tr>
-    <td width="190" align="center">
-      <a href="https://metaso.cn/minimax-h3/?s=tt" target="_blank" rel="noopener"><img src="assets/metaso.png" width="163" alt="秘塔科技"></a>
-    </td>
-    <td>
-      <strong>MiniMax H3 视频生成 API｜秘塔科技</strong> 秘塔科技提供高性价比的 MiniMax H3 视频生成服务：<strong>768P 仅 0.09 元/秒，2K 仅 0.15 元/秒</strong>。支持原生 2K、音画同步，API 兼容 <strong>OpenAI 协议</strong>，同时支持 <strong>ComfyUI</strong>，无需自行部署 GPU。 🎁 通过 <a href="https://metaso.cn/minimax-h3/?s=tt" target="_blank" rel="noopener noreferrer">无限画布专属链接注册</a>，即可领取赠送额度及专属优惠。
-    </td>
-  </tr>
-</table>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/tigerowo/cdn-tdeh/v0.5/img/infinite-canvas/3ddirectortl.webp" alt="3D 导演台时间轴" />
@@ -109,7 +76,7 @@
 ## 快速开始
 
 ```bash
-git clone https://github.com/tigerowo/infinite-canvas.git
+git clone https://github.com/mingtian886/infinite-canvas.git
 cd infinite-canvas
 cp .env.example .env
 # 修改默认账号密码等信息
@@ -134,9 +101,9 @@ cp .env.example .env
 docker compose -f docker-compose.local.yml up -d --build
 ```
 
-运行后默认端口3000，可访问 `http://localhost:3000`
+运行后默认端口51873，可访问 `http://localhost:51873`
 
-如需要拉取提示词，可前往:`http://localhost:3000/admin/prompts`
+如需要拉取提示词，可前往:`http://localhost:51873/admin/prompts`
 
 ## New API 自动配置
 
@@ -191,28 +158,7 @@ https://infinite-canvas-cpco.onrender.com?apiKey={key}&baseUrl={address}
 
 ## 联系方式
 
-项目定制二次开发需求，广告赞助合作其他可联系
-
 邮箱：yhb293933@gmail.com
-
-微信交流测试群：
-<p align="center">
-  <img src="assets/wc.png" alt="微信群二维码" width="180">
-</p>
-
-## 赞助支持
-
-<div align="center">
-
-本项目长期开放广告赞助合作，欢迎品牌 / 产品投放
-
-如果这个项目对你有帮助，欢迎赞助支持，你的每一份鼓励都是持续更新的动力！
-
-</div>
-
-## 社区支持
-
-学 AI，上 L 站：[LinuxDO](https://linux.do/)
 
 ## 开源协议
 
