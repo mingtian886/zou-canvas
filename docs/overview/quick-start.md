@@ -10,8 +10,8 @@ description: 用最少步骤把无限画布跑起来
 ## Docker 启动
 
 ```bash
-git clone https://github.com/mingtian886/infinite-canvas.git
-cd infinite-canvas
+git clone https://github.com/mingtian886/zou-canvas.git
+cd zou-canvas
 docker compose up -d
 ```
 

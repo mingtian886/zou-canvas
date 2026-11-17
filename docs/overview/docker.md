@@ -10,8 +10,8 @@ description: 使用 Docker Compose 部署无限画布
 ## 使用发布镜像
 
 ```bash
-git clone https://github.com/mingtian886/infinite-canvas.git
-cd infinite-canvas
+git clone https://github.com/mingtian886/zou-canvas.git
+cd zou-canvas
 docker compose up -d
 ```
 
