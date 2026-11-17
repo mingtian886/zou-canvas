@@ -16,3 +16,4 @@ description: 当前版本已实现但仍需人工验证的变更项
 - 确认 README、快速开始和 Docker 部署文档已说明无需创建 `.env`，且 `docker-compose.local.yml` 也可直接启动。
 - 确认 GitHub 仓库、GHCR 镜像和容器名统一改为 `zou-canvas`，GHCR 地址为 `ghcr.io/mingtian886/zou-canvas:latest`。
 - 确认 README 标题、徽标和克隆地址已统一指向 `zou-canvas`，且 `web/bun.lock` 的包名已同步。
+- 确认登录页仅保留账号密码登录，后台设置与用户列表不再显示已停用的第三方账号登录配置项。

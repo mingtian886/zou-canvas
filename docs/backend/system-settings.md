@@ -31,10 +31,7 @@ description: settings 表中 public 和 private 配置结构说明
     "allowCustomChannel": true
   },
   "auth": {
-    "allowRegister": true,
-    "linuxDo": {
-      "enabled": false
-    }
+    "allowRegister": true
   }
 }
 ```
@@ -42,7 +39,7 @@ description: settings 表中 public 和 private 配置结构说明
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `modelChannel` | object | 模型渠道公开配置组 |
-| `auth` | object | 认证相关公开配置 |
+| `auth` | object | 注册相关公开配置 |
 
 `modelChannel` 字段：
 
@@ -77,7 +74,6 @@ description: settings 表中 public 和 private 配置结构说明
 | 字段 | 类型 | 说明 |
 | --- | --- | --- |
 | `allowRegister` | boolean | 是否允许用户注册，默认允许；关闭后注册入口隐藏，注册接口拒绝新用户创建 |
-| `linuxDo.enabled` | boolean | 是否开启 Linux.do 登录 |
 
 ## private.value
 

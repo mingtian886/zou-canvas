@@ -26,7 +26,6 @@ type User struct {
 	Role        UserRole   `json:"role" gorm:"size:32"`
 	Credits     float64    `json:"credits" gorm:"type:decimal(20,2)"`
 	GithubID    string     `json:"githubId" gorm:"size:191"`
-	LinuxDoID   string     `json:"linuxDoId" gorm:"index"`
 	WechatID    string     `json:"wechatId" gorm:"size:191"`
 	Status      UserStatus `json:"status" gorm:"size:32"`
 	LastLoginAt string     `json:"lastLoginAt" gorm:"size:64"`
