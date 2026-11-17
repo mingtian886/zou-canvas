@@ -1,10 +1,10 @@
 services:
   app:
-    image: ghcr.io/mingtian886/infinite-canvas:latest
+    image: ghcr.io/mingtian886/zijihuabu:latest
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: infinite-canvas
+    container_name: zijihuabu-infinite-canvas
     environment:
       ADMIN_USERNAME: admin
       ADMIN_PASSWORD: infinite-canvas

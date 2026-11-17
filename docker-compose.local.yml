@@ -1,6 +1,6 @@
 services:
   app:
-    image: mingtian886/infinite-canvas:latest
+    image: mingtian886/zijihuabu:latest
     build:
       context: .
       dockerfile: Dockerfile
