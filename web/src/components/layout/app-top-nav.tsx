@@ -15,6 +15,7 @@ export function AppTopNav() {
     const pathname = usePathname();
     const [mobileNavOpen, setMobileNavOpen] = useState(false);
     const hideHeader = /^\/canvas\/[^/]+/.test(pathname);
+    const isHome = pathname === "/";
     const slug = pathname.split("/").filter(Boolean)[0];
     const activeToolSlug = navigationTools.some((tool) => tool.slug === slug) ? (slug as NavigationToolSlug) : undefined;
 
@@ -22,8 +23,12 @@ export function AppTopNav() {
         <>
             {!hideHeader ? (
                 <header className="sticky top-0 z-20 h-16 shrink-0 border-b border-stone-200 bg-background/90 backdrop-blur-xl dark:border-stone-800">
-                    <div className="mx-auto flex h-full max-w-7xl items-stretch justify-between gap-5 px-6">
-                        <div className="flex min-w-0 items-center">
+                    <div className={cn(
+                        "mx-auto flex h-full max-w-7xl items-stretch justify-between gap-5 px-6",
+                        isHome && "md:grid md:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]",
+                    )}>
+                        {isHome ? <div className="hidden md:block" aria-hidden="true" /> : null}
+                        <div className={cn("flex min-w-0 items-center", isHome && "md:justify-self-center")}>
                             <Link href="/" className="flex h-full shrink-0 items-center gap-2 text-sm font-semibold leading-none tracking-tight text-stone-950 transition hover:text-stone-600 dark:text-stone-100 dark:hover:text-stone-300">
                                 <span
                                     className="size-5 shrink-0 bg-current"
