@@ -53,6 +53,20 @@ func HasAdmin() (bool, error) {
 	return total > 0, err
 }
 
+// GetFirstAdmin 返回创建时间最早的管理员账号。
+func GetFirstAdmin() (model.User, bool, error) {
+	db, err := DB()
+	if err != nil {
+		return model.User{}, false, err
+	}
+	var user model.User
+	err = db.Where("role = ?", model.UserRoleAdmin).Order("created_at asc").First(&user).Error
+	if errors.Is(err, gorm.ErrRecordNotFound) {
+		return model.User{}, false, nil
+	}
+	return user, err == nil, err
+}
+
 // GetUserByID 根据 ID 查询用户。
 func GetUserByID(id string) (model.User, bool, error) {
 	db, err := DB()

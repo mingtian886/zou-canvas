@@ -21,14 +21,20 @@ docker compose up -d
 http://localhost:51873
 ```
 
-默认管理员账号：
+管理员账号：
 
 ```text
-用户名：admin
-密码：infinite-canvas
+用户名：由 ADMIN_USERNAME 决定，默认 admin
+密码：由 ADMIN_PASSWORD 决定；留空时首次启动生成随机密码并保存到 ./data/admin-password.txt
 ```
 
-账号、密码和数据库配置已直接写在 `docker-compose.yml` 的 `environment` 中，无需创建 `.env`；容器内的前端会自动代理到同一容器的 `127.0.0.1:8080` 后端，登录接口不再依赖容器外部的 `PORT` 环境变量。需要修改时直接编辑该文件，再执行 `docker compose up -d`。
+账号、密码和数据库配置写在 `docker-compose.yml` 的 `environment` 中，无需创建 `.env`。`ADMIN_PASSWORD` 留空时首次启动自动生成随机密码；填写自定义密码后，每次启动都会按该值同步管理员账号。修改账号密码后必须重新创建容器：
+
+```bash
+docker compose up -d --force-recreate
+```
+
+仅执行 `docker restart` 不会读取新的 `environment`；在飞牛 fnOS 的 Docker Compose 项目里，修改保存后应执行「构建/重新创建」。`ADMIN_PASSWORD` 非空时它是管理员密码的唯一来源，后台修改的密码会在下次按 Compose 重启时被覆盖；留空时系统不会覆盖后台修改的密码。数据目录 `./data` 会保留。容器内前端会自动代理到同一容器的 `127.0.0.1:8080` 后端，登录接口不再依赖容器外部的 `PORT` 环境变量。`JWT_SECRET` 留空时自动生成并保存到 `./data/jwt-secret.txt`，重启后登录状态保持有效。
 
 ## 本地构建镜像
 

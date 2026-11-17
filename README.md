@@ -61,6 +61,7 @@
 ```bash
 git clone https://github.com/mingtian886/zou-canvas.git
 cd zou-canvas
+# 先编辑 docker-compose.yml，设置 ADMIN_USERNAME / ADMIN_PASSWORD；ADMIN_PASSWORD 留空时首次启动自动生成随机密码。
 docker compose up -d
 ```
 
@@ -83,7 +84,13 @@ docker compose -f docker-compose.local.yml up -d --build
 
 运行后默认端口51873，可访问 `http://localhost:51873`
 
-默认管理员账号：`admin` / `infinite-canvas`。账号、密码和数据库配置直接写在 `docker-compose.yml` 的 `environment` 中，无需创建 `.env`；容器内的前端会自动代理到同一容器的 `127.0.0.1:8080` 后端，登录接口不再依赖容器外部的 `PORT` 环境变量。如需修改配置，直接编辑该文件后重新执行 `docker compose up -d`。
+管理员账号由 `docker-compose.yml` 的 `ADMIN_USERNAME` / `ADMIN_PASSWORD` 决定，无需创建 `.env`。`ADMIN_PASSWORD` 留空时，首次启动会生成随机密码并保存到 `./data/admin-password.txt`；填入自定义密码后，启动时会按 Compose 配置同步管理员账号。修改账号密码后必须重新创建容器才会生效：
+
+```bash
+docker compose up -d --force-recreate
+```
+
+仅执行 `docker restart` 或修改正在运行容器的环境变量不会生效，因为环境变量只在创建容器时写入。`ADMIN_PASSWORD` 非空时它是管理员密码的唯一来源，后台修改的密码会在下次按 Compose 重启时被覆盖；留空时系统不会覆盖后台修改的密码。数据保存在 `./data`，重新创建容器不会删除。容器内前端会自动代理到同一容器的 `127.0.0.1:8080` 后端，登录接口不再依赖容器外部的 `PORT` 环境变量。`JWT_SECRET` 留空时会自动生成并保存到 `./data/jwt-secret.txt`，重启后登录状态保持有效。
 
 如需要拉取提示词，可前往:`http://localhost:51873/admin/prompts`
 

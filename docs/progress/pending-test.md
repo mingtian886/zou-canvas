@@ -19,3 +19,7 @@ description: 当前版本已实现但仍需人工验证的变更项
 - 确认登录页仅保留账号密码登录，后台设置与用户列表不再显示已停用的第三方账号登录配置项。
 - 确认页面顶部不再显示版本号及版本更新弹窗，也不再请求上游版本信息。
 - 确认 Docker 容器内登录接口走 `127.0.0.1:8080` 后端代理，不再受前端 `PORT=51873` 影响。
+- 确认 `docker-compose.yml` 不再内置默认管理员密码，`ADMIN_PASSWORD` 留空时首次启动生成随机密码并写入 `./data/admin-password.txt`。
+- 确认在 Compose 中修改 `ADMIN_USERNAME` / `ADMIN_PASSWORD` 后执行 `docker compose up -d --force-recreate` 会同步生效，且 `./data` 数据保留。
+- 确认 `ADMIN_PASSWORD` 仍填写 `infinite-canvas` 时容器拒绝启动，避免继续使用示例密码。
+- 确认 `JWT_SECRET` 留空时自动生成并写入 `./data/jwt-secret.txt`，容器重启后旧登录 token 仍有效。

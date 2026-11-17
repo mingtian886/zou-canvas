@@ -6,7 +6,10 @@ services:
       dockerfile: Dockerfile
     environment:
       ADMIN_USERNAME: admin
-      ADMIN_PASSWORD: infinite-canvas
+      # 留空时首次启动自动生成随机管理员密码并保存到 ./data/admin-password.txt；也可直接填写自定义密码。
+      ADMIN_PASSWORD: ""
+      # 留空时自动生成并保存到 ./data/jwt-secret.txt，重启后登录状态保持有效。
+      JWT_SECRET: ""
       JWT_EXPIRE_HOURS: "168"
       STORAGE_DRIVER: sqlite
       DATABASE_DSN: /app/data/infinite-canvas.db

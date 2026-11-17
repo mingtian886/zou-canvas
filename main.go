@@ -13,7 +13,7 @@ func main() {
 	if err := config.Load(); err != nil {
 		log.Fatal(err)
 	}
-	if err := service.EnsureDefaultAdmin(); err != nil {
+	if err := service.EnsureConfiguredAdmin(); err != nil {
 		log.Fatal(err)
 	}
 	if err := service.EnsureDefaultAgentSkills(); err != nil {

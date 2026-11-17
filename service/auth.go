@@ -3,6 +3,7 @@ package service
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 	"log"
 	"math"
 	"strings"
@@ -16,6 +17,11 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+const (
+	generatedAdminPasswordFile = "admin-password.txt"
+	legacyDefaultAdminPassword = "infinite-canvas"
+)
+
 func normalizeCredits(value float64) float64 {
 	return math.Round(value*100) / 100
 }
@@ -27,29 +33,99 @@ type TokenClaims struct {
 	jwt.RegisteredClaims
 }
 
-func EnsureDefaultAdmin() error {
-	if strings.TrimSpace(config.Cfg.AdminUsername) == "" || strings.TrimSpace(config.Cfg.AdminPassword) == "" {
-		return nil
+func EnsureConfiguredAdmin() error {
+	username := strings.TrimSpace(config.Cfg.AdminUsername)
+	if username == "" {
+		username = "admin"
 	}
-	WarnDefaultSecurityConfig()
-	hasAdmin, err := repository.HasAdmin()
-	if err != nil || hasAdmin {
-		return err
+	if strings.ContainsAny(username, " \t\r\n") {
+		return fmt.Errorf("ADMIN_USERNAME 不能包含空格")
 	}
-	hash, err := hashPassword(config.Cfg.AdminPassword)
+	password := config.Cfg.AdminPassword
+	if password == legacyDefaultAdminPassword {
+		return errors.New("ADMIN_PASSWORD 仍是示例密码，请修改 docker-compose.yml")
+	}
+
+	admin, hasAdmin, err := repository.GetFirstAdmin()
 	if err != nil {
 		return err
 	}
-	_, err = repository.SaveUser(model.User{
+	if password == "" {
+		if hasAdmin {
+			return nil
+		}
+		generated, err := config.RandomSecret()
+		if err != nil {
+			return err
+		}
+		path, err := config.WriteDataFile(generatedAdminPasswordFile, fmt.Sprintf("ADMIN_USERNAME=%s\nADMIN_PASSWORD=%s\n", username, generated))
+		if err != nil {
+			return err
+		}
+		if _, err := createAdmin(username, generated); err != nil {
+			return err
+		}
+		log.Printf("INFO: generated initial admin password saved to %s", path)
+		return nil
+	}
+
+	target, found, err := repository.GetUserByUsername(username)
+	if err != nil {
+		return err
+	}
+	if found && target.Role != model.UserRoleAdmin {
+		return fmt.Errorf("ADMIN_USERNAME %q 已被普通用户使用", username)
+	}
+	if !found {
+		if !hasAdmin {
+			if _, err := createAdmin(username, password); err != nil {
+				return err
+			}
+			return config.RemoveDataFile(generatedAdminPasswordFile)
+		}
+		target = admin
+	}
+	if err := syncAdmin(&target, username, password); err != nil {
+		return err
+	}
+	return config.RemoveDataFile(generatedAdminPasswordFile)
+}
+
+func createAdmin(username, password string) (model.User, error) {
+	hash, err := hashPassword(password)
+	if err != nil {
+		return model.User{}, err
+	}
+	return repository.SaveUser(model.User{
 		ID:        newID("user"),
-		Username:  strings.TrimSpace(config.Cfg.AdminUsername),
+		Username:  username,
 		Password:  hash,
 		Role:      model.UserRoleAdmin,
 		Status:    model.UserStatusActive,
 		CreatedAt: now(),
 		UpdatedAt: now(),
 	})
-	return err
+}
+
+func syncAdmin(admin *model.User, username, password string) error {
+	passwordMatches := bcrypt.CompareHashAndPassword([]byte(admin.Password), []byte(password)) == nil
+	if admin.Username == username && passwordMatches && admin.Role == model.UserRoleAdmin && admin.Status == model.UserStatusActive {
+		return nil
+	}
+	hash, err := hashPassword(password)
+	if err != nil {
+		return err
+	}
+	admin.Username = username
+	admin.Password = hash
+	admin.Role = model.UserRoleAdmin
+	admin.Status = model.UserStatusActive
+	admin.UpdatedAt = now()
+	if _, err := repository.SaveUser(*admin); err != nil {
+		return err
+	}
+	log.Println("INFO: admin credentials synced from ADMIN_USERNAME/ADMIN_PASSWORD")
+	return nil
 }
 
 func Register(username string, password string) (model.AuthSession, error) {
@@ -372,10 +448,4 @@ func firstNonEmpty(values ...string) string {
 		}
 	}
 	return ""
-}
-
-func WarnDefaultSecurityConfig() {
-	if config.Cfg.AdminUsername == "admin" && config.Cfg.AdminPassword == "infinite-canvas" {
-		log.Println("WARNING: using default admin credentials, please set ADMIN_USERNAME and ADMIN_PASSWORD to safer values before deployment")
-	}
 }
