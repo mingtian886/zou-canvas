@@ -32,7 +32,7 @@ COPY repository ./repository
 COPY router ./router
 COPY service ./service
 COPY main.go ./
-RUN go build -o /server .
+RUN GOPROXY=https://goproxy.cn,direct go build -o /server .
 
 # 运行镜像：Next.js 对外监听 51873，Go 只在容器内部监听 8080。
 FROM node:22-bookworm-slim
