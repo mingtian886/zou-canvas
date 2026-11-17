@@ -12,6 +12,8 @@ description: 用最少步骤把无限画布跑起来
 ```bash
 git clone https://github.com/mingtian886/zou-canvas.git
 cd zou-canvas
+cp .env.example .env
+# 编辑 .env，设置 ADMIN_USERNAME / ADMIN_PASSWORD / JWT_SECRET
 docker compose up -d
 ```
 
@@ -21,20 +23,15 @@ docker compose up -d
 http://localhost:51873
 ```
 
-默认管理员账号：
-
-```text
-用户名：admin
-密码：infinite-canvas
-```
-
-`docker-compose.yml` 已内置账号、密码和数据库配置，无需创建 `.env`。
+管理员账号由 `.env` 中的 `ADMIN_USERNAME` / `ADMIN_PASSWORD` 决定；不要使用 `infinite-canvas` 作为密码，容器会拒绝启动。`ADMIN_PASSWORD` 留空时，首次启动会生成随机密码并保存到 `./data/admin-password.txt`。`.env` 已被 `.gitignore` 忽略，真实账号密码不要提交到公开仓库。修改 `.env` 后执行 `docker compose up -d --force-recreate` 才会重新注入环境变量。
 
 ## 本地构建镜像启动
 
-如果你需要基于当前源码本地构建镜像：
+如果你需要基于当前源码本地构建镜像，同样先准备 `.env`：
 
 ```bash
+cp .env.example .env
+# 编辑 .env
 docker compose -f docker-compose.local.yml up -d --build
 ```
 

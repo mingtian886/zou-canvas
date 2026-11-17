@@ -61,7 +61,8 @@
 ```bash
 git clone https://github.com/mingtian886/zou-canvas.git
 cd zou-canvas
-# 先编辑 docker-compose.yml，设置 ADMIN_USERNAME / ADMIN_PASSWORD；ADMIN_PASSWORD 留空时首次启动自动生成随机密码。
+cp .env.example .env
+# 编辑 .env，设置 ADMIN_USERNAME / ADMIN_PASSWORD / JWT_SECRET
 docker compose up -d
 ```
 
@@ -84,7 +85,7 @@ docker compose -f docker-compose.local.yml up -d --build
 
 运行后默认端口51873，可访问 `http://localhost:51873`
 
-管理员账号由 `docker-compose.yml` 的 `ADMIN_USERNAME` / `ADMIN_PASSWORD` 决定，无需创建 `.env`。`ADMIN_PASSWORD` 留空时，首次启动会生成随机密码并保存到 `./data/admin-password.txt`；填入自定义密码后，启动时会按 Compose 配置同步管理员账号。修改账号密码后必须重新创建容器才会生效：
+管理员账号、JWT 密钥和数据库配置由 `.env` 提供，Compose 通过 `env_file` 注入容器；不要使用 `infinite-canvas` 作为密码，容器会拒绝启动。`.env` 已被 `.gitignore` 忽略，公开仓库只提交 `.env.example`。`ADMIN_PASSWORD` 留空时，首次启动会生成随机密码并保存到 `./data/admin-password.txt`；填入自定义密码后，启动时会按 `.env` 同步管理员账号。修改 `.env` 后必须重新创建容器才会生效：
 
 ```bash
 docker compose up -d --force-recreate
