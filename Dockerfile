@@ -13,8 +13,6 @@ FROM oven/bun:1.3.14 AS web-build
 WORKDIR /app/web
 COPY web/package.json web/bun.lock ./
 RUN --mount=type=cache,target=/root/.bun/install/cache bun install --frozen-lockfile --cache-dir=/root/.bun/install/cache
-COPY VERSION /app/VERSION
-COPY CHANGELOG.md /app/CHANGELOG.md
 COPY web ./
 COPY canvas-agent/scripts /app/canvas-agent/scripts
 COPY --from=bridge-build /bridge/ /app/web/public/
@@ -40,8 +38,6 @@ RUN go build -o /server .
 FROM node:22-bookworm-slim
 
 WORKDIR /app
-COPY VERSION /app/VERSION
-COPY CHANGELOG.md /app/CHANGELOG.md
 COPY --from=api-build /server /app/server
 COPY docker-entrypoint.sh /app/docker-entrypoint.sh
 RUN chmod +x /app/docker-entrypoint.sh

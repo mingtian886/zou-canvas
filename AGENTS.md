@@ -72,20 +72,12 @@
 - 详细功能介绍写到 `docs/overview/features.md`。
 - 后续待办写到 `docs/progress/todo.md`。
 - 已实现但还需要用户测试确认的事项写到 `docs/progress/pending-test.md`。
-- `docs/progress/pending-test.md` 用来记录这个版本实际做了哪些可测试变更；`CHANGELOG.md` 的 `Unreleased` 只保留对这些变更的版本级归纳，避免逐条照搬实现细节。
+- `docs/progress/pending-test.md` 用来记录当前版本实际做了哪些可测试变更。
 - 每次 todo 事项完成后，先从 `docs/progress/todo.md` 移到 `docs/progress/pending-test.md`，不要直接写进正式功能说明；用户确认测试通过后再更新 `docs/overview/features.md`。
 - 每次任务完成前，都要根据实际变更检查并更新 `docs/progress/todo.md` 和 `docs/progress/pending-test.md`；如果功能或待办没有变化，也要确认无需修改。
 - 接口响应规则写到 `docs/backend/api-response.md`。
 - 数据库结构写到 `docs/backend/backend-database.md`。
 - 文档不要写过期日期；除非用户明确要求记录具体时间。
-
-## 发版本流程
-
-- 发版本时，先把 `CHANGELOG.md` 的 `Unreleased` 变更整理成新的版本记录，并保留空的 `Unreleased` 标题。
-- 按当前版本号提升一个版本，更新根目录 `VERSION`。
-- 将当前未提交的代码全部提交到 Git。
-- 提交完成后，给当前提交打最新版本号对应的 tag，例如 `v0.0.5`。
-- 发版本流程中不要执行编译、测试或构建，除非用户明确要求。
 
 ## 项目注意事项
 

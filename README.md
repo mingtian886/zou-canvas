@@ -6,7 +6,6 @@
 
 <p align="center">
   <a href="https://github.com/mingtian886/zou-canvas"><img src="https://img.shields.io/github/stars/mingtian886/zou-canvas?style=flat-square&logo=github" alt="GitHub stars"></a>
-  <a href="VERSION"><img src="https://img.shields.io/badge/version-v0.8.4-2563eb?style=flat-square" alt="Version"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-AGPL--3.0-f97316?style=flat-square" alt="License"></a>
   <a href="https://www.docker.com/"><img src="https://img.shields.io/badge/Docker-ready-2496ed?style=flat-square&logo=docker&logoColor=white" alt="Docker ready"></a>
   <a href="https://nextjs.org/"><img src="https://img.shields.io/badge/Next.js-16.2-000000?style=flat-square&logo=nextdotjs" alt="Next.js"></a>
@@ -84,7 +83,7 @@ docker compose -f docker-compose.local.yml up -d --build
 
 运行后默认端口51873，可访问 `http://localhost:51873`
 
-默认管理员账号：`admin` / `infinite-canvas`。账号、密码和数据库配置直接写在 `docker-compose.yml` 的 `environment` 中，无需创建 `.env`；如需修改，直接编辑该文件后重新执行 `docker compose up -d`。
+默认管理员账号：`admin` / `infinite-canvas`。账号、密码和数据库配置直接写在 `docker-compose.yml` 的 `environment` 中，无需创建 `.env`；容器内的前端会自动代理到同一容器的 `127.0.0.1:8080` 后端，登录接口不再依赖容器外部的 `PORT` 环境变量。如需修改配置，直接编辑该文件后重新执行 `docker compose up -d`。
 
 如需要拉取提示词，可前往:`http://localhost:51873/admin/prompts`
 

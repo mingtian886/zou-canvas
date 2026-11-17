@@ -28,7 +28,7 @@ http://localhost:51873
 密码：infinite-canvas
 ```
 
-账号、密码和数据库配置已直接写在 `docker-compose.yml` 的 `environment` 中，无需创建 `.env`；需要修改时直接编辑该文件，再执行 `docker compose up -d`。
+账号、密码和数据库配置已直接写在 `docker-compose.yml` 的 `environment` 中，无需创建 `.env`；容器内的前端会自动代理到同一容器的 `127.0.0.1:8080` 后端，登录接口不再依赖容器外部的 `PORT` 环境变量。需要修改时直接编辑该文件，再执行 `docker compose up -d`。
 
 ## 本地构建镜像
 
