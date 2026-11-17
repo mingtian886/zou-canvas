@@ -78,9 +78,7 @@
 ```bash
 git clone https://github.com/mingtian886/infinite-canvas.git
 cd infinite-canvas
-cp .env.example .env
-# 修改默认账号密码等信息
-docker compose up -d --build
+docker compose up -d
 ```
 
 本地非 Docker 开发运行：
@@ -97,11 +95,12 @@ bun run dev
 本地源码构建运行：
 
 ```bash
-cp .env.example .env
 docker compose -f docker-compose.local.yml up -d --build
 ```
 
 运行后默认端口51873，可访问 `http://localhost:51873`
+
+默认管理员账号：`admin` / `infinite-canvas`。账号、密码和数据库配置直接写在 `docker-compose.yml` 的 `environment` 中，无需创建 `.env`；如需修改，直接编辑该文件后重新执行 `docker compose up -d`。
 
 如需要拉取提示词，可前往:`http://localhost:51873/admin/prompts`
 

@@ -12,7 +12,6 @@ description: 使用 Docker Compose 部署无限画布
 ```bash
 git clone https://github.com/mingtian886/infinite-canvas.git
 cd infinite-canvas
-cp .env.example .env
 docker compose up -d
 ```
 
@@ -26,15 +25,16 @@ http://localhost:51873
 
 ```text
 用户名：admin
-密码：.env 中的 ADMIN_PASSWORD
+密码：infinite-canvas
 ```
+
+账号、密码和数据库配置已直接写在 `docker-compose.yml` 的 `environment` 中，无需创建 `.env`；需要修改时直接编辑该文件，再执行 `docker compose up -d`。
 
 ## 本地构建镜像
 
 如果需要基于当前源码构建镜像：
 
 ```bash
-cp .env.example .env
 docker compose -f docker-compose.local.yml up -d --build
 ```
 
@@ -42,8 +42,10 @@ docker compose -f docker-compose.local.yml up -d --build
 
 `docker-compose.yml` 会把本地 `./data` 挂载到容器内 `/app/data`，用于保存 SQLite 数据库、提示词数据和上传素材。
 
-Docker 部署时建议把 `.env` 中的 SQLite 路径设置为：
+容器内数据库路径已内置为：
 
 ```text
 DATABASE_DSN=/app/data/infinite-canvas.db
 ```
+
+如需调整，直接修改 `docker-compose.yml` 中的 `environment` 配置。

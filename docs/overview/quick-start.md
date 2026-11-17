@@ -12,7 +12,6 @@ description: 用最少步骤把无限画布跑起来
 ```bash
 git clone https://github.com/mingtian886/infinite-canvas.git
 cd infinite-canvas
-cp .env.example .env
 docker compose up -d
 ```
 
@@ -26,15 +25,16 @@ http://localhost:51873
 
 ```text
 用户名：admin
-密码：.env 中的 ADMIN_PASSWORD
+密码：infinite-canvas
 ```
+
+`docker-compose.yml` 已内置账号、密码和数据库配置，无需创建 `.env`。
 
 ## 本地构建镜像启动
 
 如果你需要基于当前源码本地构建镜像：
 
 ```bash
-cp .env.example .env
 docker compose -f docker-compose.local.yml up -d --build
 ```
 
